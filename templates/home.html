@@ -1,0 +1,12 @@
+{% extends "base.html"%}
+{% block content %}
+<body>
+    <h1>Home Page</h1>
+    <nav>
+        <a href="{{ url_for('login') }}">login</a>
+        <a href="{{ url_for('register') }}">register</a>
+    </nav>
+</body>
+{% endblock %}
+
+

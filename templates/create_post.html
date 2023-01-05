@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<body>
+    <nav>
+        <a href="{{url_for('logout')}}">Logout</a>
+        <a href="{{ url_for('posts') }}">See Posts</a>
+    </nav>
+    <div>
+        <form action="/new_post" method="post">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title">
+            <br>
+            <label for="content">Content</label>
+            <br>
+            <textarea name="content" id="content" cols="30" rows="10"></textarea>
+            <input name="submit" type="submit" value="Create Post">
+        </form>
+    </div>
+    
+</body>
+{% endblock %}

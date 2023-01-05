@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<body>
+    <h1>Hello you are logged in.</h1>
+    <a href="{{url_for('logout')}}">Press here to logout</a>
+    <a href="{{url_for('new_post')}}">Make a new Post</a>
+    <a href="{{url_for('posts')}}">See Posts</a>
+    <a href="{{url_for('delete_user', id=current_user.id )}}">Delete User</a>
+    <a href="{{url_for('post_follow')}}">Users i follow</a>
+{% endblock %}
+

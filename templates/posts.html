@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+    {% block content %}
+        <nav>
+            <a href="{{url_for('logout')}}">Logout</a>
+            <a href="{{url_for('new_post')}}">Make a new Post</a>
+            <a href="{{url_for('dashboard')}}">Dashboard</a>
+        </nav>
+        {% for post in posts %}
+        <div>
+            <div id="follow">
+                <p>{{post.author.username}}</p>
+                <a href="{{url_for('follow' , username=post.author.username )}}">Follow</a>
+            </div>
+            <h3>{{post.title}}</h3>
+            <p>{{post.content}}</p>
+        </div>
+    {% endfor %}
+{% endblock %} 
