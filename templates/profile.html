@@ -3,31 +3,9 @@
 <span id="span-user">Usuario actual: {{current_user.username}}</span>
 <nav id="links">
     <a href="{{url_for('logout')}}">logout</a>
-    <a href="{{url_for('new_post')}}">Make a new Post</a>
+    <a href="{{url_for('posts')}}">Home</a>
     <a href="{{url_for('dashboard')}}">Dashboard</a>
 </nav>
-<div id="make-post">
-    <form action="/new_post" method="post" enctype=multipart/form-data>
-        <fieldset>
-            <legend>Content</legend>
-            <label for="content">
-                <textarea name="content" id="content" cols="30" rows="10"></textarea>
-            </label>
-        </fieldset>
-        <input type="file" name="image" id="image" onchange="loadFile(event)">
-            <div id="media-post">
-                <fieldset>
-                    <legend>Image</legend>
-                    <label for="image">
-                        <img id="output"/>
-                    </label>
-                </fieldset>
-            </div>
-        <br>
-        <input name="submit" type="submit" value="Create Post">
-    </form>
-
-</div>
 {% for post in posts %}
 <div id="div-post">
     <div id="form-comentarios">
