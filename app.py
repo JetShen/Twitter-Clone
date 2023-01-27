@@ -137,7 +137,6 @@ def register():
 def new_post():
     if request.method == 'POST':
         try:
-            print("//"*10)
             file = request.files['image']
             if (file and allowed_file(file.filename)) and request.form['content'] != '':
                 filename = secure_filename(file.filename)
