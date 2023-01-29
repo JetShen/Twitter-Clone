@@ -101,7 +101,7 @@ def login():
         if user:
             if bcrypt.check_password_hash(user.password, form.password.data):
                 login_user(user)
-                return redirect(url_for('dashboard'))
+                return redirect(url_for('posts'))
     return render_template('login.html', form=form)
 
 
@@ -188,7 +188,8 @@ def post_follow():
     f =Follow.query.filter_by(follower_id=current_user.id).all()
     posts = Post.query.filter_by(author_id = (Follow.followed_id)).all()
     users = User.query.all()
-    return render_template('Followed.html', posts=posts, users=users)
+    comments = coment.query.all()
+    return render_template('Followed.html', posts=posts, users=users, comments=comments)
 
 
 @app.route('/delete_user/<int:id>')
@@ -276,7 +277,9 @@ def like(post_id):
 @login_required
 def profile(id):
     posts = Post.query.filter_by(author_id=id).all()
-    return render_template('profile.html', posts=posts)
+    users = User.query.all()
+    comments = coment.query.all()
+    return render_template('profile.html', posts=posts, users=users, comments=comments)
 
 
 if __name__ == '__main__':

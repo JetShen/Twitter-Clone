@@ -1,19 +1,57 @@
 {% extends "base.html" %}
-<!-- para esta plantilla/funcion facilmente podria utilizar post.html, pero no lo hice asi para que se vea mas claro -->
+<!-- for this template/function I could easily use post.html, but I didn't do it that way to make it clearer. -->
     {% block content %}
-        <nav>
+    <span id="span-user">Usuario actual: {{current_user.username}}</span>
+        <nav id="links">
             <a href="{{url_for('logout')}}">Logout</a>
-            <a href="{{url_for('new_post')}}">Make a new Post</a>
             <a href="{{url_for('dashboard')}}">Dashboard</a>
+            <a href="{{url_for('posts')}}">posts</a>
         </nav>
         {% for post in posts %}
-        <div>
-            <div id="follow">
-                <p>{{post.author.username}}</p>
-                <a href="{{url_for('follow' , username=post.author.username )}}">Follow</a>
+        <div id="div-post">
+            <div id="form-comentarios">
+                <nav id="follow">
+                    <a href="{{url_for('profile', id=post.author.id)}}">{{post.author.username}}</a>
+                    {% if post.author.username != current_user.username %}
+                    <a href="{{url_for('follow' , username=post.author.username )}}">Follow</a>
+                    {% endif %}
+                    {% if post.author.username == current_user.username %}
+                    <a id="delete" href="{{url_for('delete_post', id=post.id )}}">Delete Post</a>
+                    {% endif %}
+                </nav>
+                <p>{{post.content}}</p>
+                {% if post.img != '' %}
+                <div id="media">
+                    {% if post.img.split(".")[1]!='mp4' %}
+                    <img src="/static/files/{{post.img}}" alt="a">
+                    {% else %}
+                    <video src="/static/files/{{post.img}}" controls></video>
+                    {% endif %}
+                </div>
+                {% endif %}
+                <form action="{{url_for('like', post_id=post.id )}}" id="like-form">
+                    <input type="hidden" name="post_id" value="{{post.id}}">
+                    <label for="">
+                        <input id="like" type="submit" value="Like">
+                        {{ post.like_count }}
+        
+                    </label>
+                </form>
+                <form action="{{ url_for('new_comment', post_id=post.id ) }}" method="post">
+                    <nav id="make-coment">
+                        <textarea name="coment" id="coment" cols="35" rows="2" placeholder="Make a coment"></textarea>
+                        <input type="hidden" name="post_id" value="{{post.id}}">
+                        <input type="submit" value="Comentar">
+                    </nav>
+                </form>
             </div>
-            <h3>{{post.title}}</h3>
-            <p>{{post.content}}</p>
+            <div id="comentarios">
+                {% for comment in comments %}
+                {% if comment.post_id == post.id %}
+                <p>{{comment.author_name}}: {{comment.content}}</p>
+                {% endif %}
+                {% endfor %}
+            </div>
         </div>
     {% endfor %}
 {% endblock %}
